@@ -1,0 +1,8 @@
+{
+  "ViewSize": {
+    "IsEmpty": false,
+    "Width": 1205,
+    "Height": 601
+  },
+  "YoutubeEmbed": "https://www.youtube.com/embed/{0}?version=3&playlist={0}&modestbranding=1&rel=0&loop=1&autoplay=1&mute=1&fs=0"
+}
