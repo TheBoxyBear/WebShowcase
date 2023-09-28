@@ -36,8 +36,9 @@ namespace WebShowcase
             menuStrip_File_Save = new ToolStripMenuItem();
             menuStrip_File_SaveAs = new ToolStripMenuItem();
             menu_Add = new ToolStripMenuItem();
+            menu_Reorder = new ToolStripMenuItem();
             Menu_Settings = new ToolStripMenuItem();
-            menu_configure = new ToolStripMenuItem();
+            menu_Configure = new ToolStripMenuItem();
             pageEntries = new StackPanel();
             menuStrip = new MenuStrip();
             menuStrip.SuspendLayout();
@@ -46,7 +47,7 @@ namespace WebShowcase
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { menuStrip_File, menu_Add, Menu_Settings, menu_configure });
+            menuStrip.Items.AddRange(new ToolStripItem[] { menuStrip_File, menu_Add, menu_Reorder, Menu_Settings, menu_Configure });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(4, 1, 0, 1);
@@ -92,6 +93,15 @@ namespace WebShowcase
             menu_Add.Text = "Add";
             menu_Add.Click += Menu_Add_Click;
             // 
+            // menu_Reorder
+            // 
+            menu_Reorder.Checked = true;
+            menu_Reorder.CheckState = CheckState.Checked;
+            menu_Reorder.Name = "menu_Reorder";
+            menu_Reorder.Size = new Size(60, 22);
+            menu_Reorder.Text = "Reorder";
+            menu_Reorder.Click += Menu_Reorder_Click;
+            // 
             // Menu_Settings
             // 
             Menu_Settings.Name = "Menu_Settings";
@@ -99,12 +109,12 @@ namespace WebShowcase
             Menu_Settings.Text = "Settings";
             Menu_Settings.Click += Menu_Settings_Click;
             // 
-            // menu_configure
+            // menu_Configure
             // 
-            menu_configure.Name = "menu_configure";
-            menu_configure.Size = new Size(117, 22);
-            menu_configure.Text = "Configure browser";
-            menu_configure.Click += Menu_Configure_Click;
+            menu_Configure.Name = "menu_Configure";
+            menu_Configure.Size = new Size(117, 22);
+            menu_Configure.Text = "Configure browser";
+            menu_Configure.Click += Menu_Configure_Click;
             // 
             // pageEntries
             // 
@@ -146,6 +156,7 @@ namespace WebShowcase
         private ToolStripMenuItem menuStrip_File_Save;
         private ToolStripMenuItem menuStrip_File_SaveAs;
         private ToolStripMenuItem Menu_Settings;
-        private ToolStripMenuItem menu_configure;
+        private ToolStripMenuItem menu_Configure;
+        private ToolStripMenuItem menu_Reorder;
     }
 }

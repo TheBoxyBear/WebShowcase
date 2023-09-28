@@ -42,6 +42,31 @@ public partial class PageEntry : UserControl
         }
     }
 
+    public bool OrderButtonsVisible
+    {
+        get => _orderButtonsVisible;
+        set
+        {
+            _orderButtonsVisible = value;
+
+            if (_orderButtonsVisible)
+            {
+                tableLayoutPanel1.SetColumnSpan(label, 1);
+
+                tableLayoutPanel1.Controls.Add(btnUp, 1, 0);
+                tableLayoutPanel1.Controls.Add(btnDown, 2, 0);
+            }
+            else
+            {
+                tableLayoutPanel1.Controls.Remove(btnUp);
+                tableLayoutPanel1.Controls.Remove(btnDown);
+
+                tableLayoutPanel1.SetColumnSpan(label, 3);
+            }
+        }
+    }
+    private bool _orderButtonsVisible = true;
+
     public PageEntry(PageCollection pages, int index)
     {
         InitializeComponent();

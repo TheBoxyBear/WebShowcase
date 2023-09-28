@@ -12,21 +12,7 @@ public class PageView : IDisposable
     private ChromiumOptions _options;
     private readonly IBrowserTypeProvider _provider;
 
-    public bool EditMode
-    {
-        get => _editMode;
-        set
-        {
-            _editMode = value;
-
-            if (_options.Arguments.Contains("app"))
-                _options = _provider.CreateOptions();
-
-            if (!_editMode)
-                _options.AddArgument($"app={Url}");
-        }
-    }
-    private bool _editMode;
+    public bool EditMode { get; set; }
 
     public string Url { get; private set; }
 
@@ -37,14 +23,6 @@ public class PageView : IDisposable
 
         return view;
     }
-    private async Task InitDriver()
-    {
-        await Task.Run(() => _driver = _provider.CreateDriver(_driverService, _options));
-        _driver.Manage().Window.Size = GlobalSettings.Values.ViewSize;
-
-        if (!EditMode)
-            await NavigateAsync(Url);
-    }
 
     private PageView(string url, bool editMode)
     {
@@ -54,12 +32,18 @@ public class PageView : IDisposable
             BrowserBackend.Chrome => new ChromeTypeProvider(),
         };
 
-        if (!Directory.Exists(_provider.UserDataDest))
-            Directory.CreateDirectory(_provider.UserDataDest);
+        if (!Directory.Exists($@"UserData\{_provider.UserDataDest}"))
+            Directory.CreateDirectory($@"UserData\{_provider.UserDataDest}");
 
         _driverService = _provider.CreateService();
         _driverService.HideCommandPromptWindow = !GlobalSettings.Values.DebugConsole;
 
+        Url = url;
+        EditMode = editMode;
+    }
+
+    private void InitOptions()
+    {
         _options = _provider.CreateOptions();
 
         _options.AddExcludedArgument("enable-automation");
@@ -67,8 +51,22 @@ public class PageView : IDisposable
             $@"user-data-dir={Environment.CurrentDirectory}\UserData\{_provider.UserDataDest}",
             $"profile-directory={(string.IsNullOrEmpty(GlobalSettings.Values.BrowserProfile) ? "Default" : GlobalSettings.Values.BrowserProfile)}");
 
-        Url = url;
-        EditMode = editMode;
+        if (GlobalSettings.Values.HideScrollBar)
+            _options.AddArgument("enable-features=OverlayScrollbar");
+
+        if (!EditMode)
+            _options.AddArgument($"app={Url}");
+    }
+
+    private async Task InitDriver()
+    {
+        InitOptions();
+
+        await Task.Run(() => _driver = _provider.CreateDriver(_driverService, _options));
+        _driver.Manage().Window.Size = GlobalSettings.Values.ViewSize;
+
+        if (!EditMode)
+            await NavigateAsync(Url);
     }
 
     public async Task NavigateAsync(string url)

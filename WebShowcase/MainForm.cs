@@ -9,6 +9,8 @@ using WebShowcase.Controls;
 using WebShowcase.Edit;
 using WebShowcase.Settings;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace WebShowcase;
 
 public enum FileSelectMode : byte { Open, Save }
@@ -83,6 +85,14 @@ public partial class MainForm : Form
             foreach (PageEntry entry in pageEntries.Controls)
                 entry.PreviewHidden = GlobalSettings.Values.HideTitlePreviews;
         }
+    }
+
+    private void Menu_Reorder_Click(object sender, EventArgs e)
+    {
+        menu_Reorder.Checked = !menu_Reorder.Checked;
+
+        foreach (PageEntry entry in pageEntries.Controls)
+            entry.OrderButtonsVisible = menu_Reorder.Checked;
     }
 
     private async void Menu_Configure_Click(object sender, EventArgs e)
@@ -164,6 +174,7 @@ public partial class MainForm : Form
             await _view.NavigateAsync(url);
         }
 
+        File.WriteAllText("title.txt", e.Page.Title);
     }
     #endregion
 

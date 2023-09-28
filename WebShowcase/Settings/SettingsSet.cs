@@ -16,6 +16,8 @@ public class SettingsSet
     public string BrowserProfile { get; set; }
     [DisplayName("Debug console"), Description("Display the debug console.")]
     public bool DebugConsole { get; set; }
+    [DisplayName("Hide browser scroll bar"), Description("Automatically hide the browser scroll bar when not in use.")]
+    public bool HideScrollBar { get; set; }
 }
 
 public enum BrowserBackend { Chrome, Edge };

@@ -10,8 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms.NETCore" Version="116.0.230" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.12.4" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.13.0" />
   </ItemGroup>
 
   <ItemGroup>
