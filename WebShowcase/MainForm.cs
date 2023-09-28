@@ -251,7 +251,8 @@ public partial class MainForm : Form
         var entry = new PageEntry(_pages!, index)
         {
             Anchor = AnchorStyles.Left | AnchorStyles.Right,
-            PreviewHidden = GlobalSettings.Values.HideTitlePreviews
+            PreviewHidden = GlobalSettings.Values.HideTitlePreviews,
+            OrderButtonsVisible = menu_Reorder.Checked
         };
 
         entry.PageModified += Page_Modified;
